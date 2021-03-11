@@ -7,15 +7,20 @@ import com.ramalomi.notepadmvc.repositories.NoteRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.Provides;
+
 public class ListPresenter {
 
     private View view;
     private NoteRepository noteRepository;
     private List<Note> notes;
 
-    public ListPresenter(View view, Context context) {
+    @Inject
+    public ListPresenter(View view, NoteRepository noteRepository) {
         this.view = view;
-        noteRepository = new NoteRepository(context);
+        this.noteRepository = noteRepository;
     }
 
     public void getAll() {

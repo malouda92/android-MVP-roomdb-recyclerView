@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.ramalomi.notepadmvc.list.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        android:label="Notes"
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_newFragment"
             app:destination="@id/newFragment" />
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/newFragment"
         android:name="com.ramalomi.notepadmvc.newNote.NewFragment"
-        android:label="fragment_new"
+        android:label="Nouvelle"
         tools:layout="@layout/fragment_new" />
 </navigation>

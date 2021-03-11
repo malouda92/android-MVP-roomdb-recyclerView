@@ -2,6 +2,7 @@ package com.ramalomi.notepadmvc.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "note")
@@ -16,6 +17,7 @@ public class Note {
     @ColumnInfo(name="note_note")
     private String note;
 
+    @Ignore
     public Note() {
     }
 

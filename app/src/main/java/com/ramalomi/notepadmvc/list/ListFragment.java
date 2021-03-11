@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -34,12 +35,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.inject.Inject;
+
+
 public class ListFragment extends Fragment implements ListPresenter.View {
 
-    private ListPresenter listPresenter;
+    @Inject
+    ListPresenter listPresenter;
     private RecyclerView recyclerView;
     private NavController navController;
     private FloatingActionButton fab;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,13 +53,14 @@ public class ListFragment extends Fragment implements ListPresenter.View {
 
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         setHasOptionsMenu(true);
-        listPresenter = new ListPresenter(this, getContext());
+        ListPresenterComponent listPresenterComponent = DaggerListPresenterComponent.builder().withView(this).withContext(getContext()).build();
+        listPresenterComponent.inject(this);
         recyclerView = view.findViewById(R.id.recyclerView);
         fab = view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_listFragment_to_newFragment);
+                navController.navigate(ListFragmentDirections.actionListFragmentToNewFragment());
             }
         });
         return view;
@@ -76,6 +83,6 @@ public class ListFragment extends Fragment implements ListPresenter.View {
         }
         NoteAdapter noteAdapter = new NoteAdapter(list_title);
         recyclerView.setAdapter(noteAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 }
